@@ -6,7 +6,7 @@
   <author>David Briglio</author>
   <repo>https://github.com/DavidBriglio/cordova-plugin-foreground-service</repo>
   <keywords>cordova,background,foreground,service</keywords>
-  <js-module src="www/foreground.js" name="ForegroundService">
+  <js-module src="www/foreground.js" name="ForegroundService"> 
     <clobbers target="cordova.plugins.foregroundService" />
   </js-module>
   <platform name="android">
