@@ -34,7 +34,9 @@ public class ForegroundPlugin extends CordovaPlugin {
                 intent.setAction("stop");
 
                 // Stop the service
-                activity.getApplicationContext().startService(intent);
+                // activity.getApplicationContext().startService(intent);
+                activity.getApplicationContext().stopService(intent);
+
             }
         }
 
