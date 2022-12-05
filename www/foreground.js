@@ -6,5 +6,9 @@ module.exports = {
   },
   stop: function() {
     exec(null, null, "ForegroundPlugin", "stop", []);
-  }
+  },
+  restart: function(title, text, icon, importance, notificationId) {
+    exec(null, null, "ForegroundPlugin", "restart", [title || "", text || "", icon || "", importance || "1", notificationId || ""]);
+    }
+  
 };

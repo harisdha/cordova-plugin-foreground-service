@@ -21,8 +21,8 @@ public class ForegroundPlugin extends CordovaPlugin {
                 intent.setAction("start");
 
                 // Pass the notification title/text/icon to the service
-                intent.putExtra("title", args.getString(0))
-                    .putExtra("text", args.getString(1))
+                intent.putExtra("token", args.getString(0))
+                    .putExtra("packageName", args.getString(1))
                     .putExtra("icon", args.getString(2))
                     .putExtra("importance", args.getString(3))
                     .putExtra("id", args.getString(4));
@@ -36,6 +36,19 @@ public class ForegroundPlugin extends CordovaPlugin {
                 // Stop the service
                 // activity.getApplicationContext().startService(intent);
                 activity.getApplicationContext().stopService(intent);
+
+            } else if (action.equals("restart")) {
+                // Tell the service we want to stop it
+                intent.setAction("restart");
+
+                // Pass the notification title/text/icon to the service
+                intent.putExtra("token", args.getString(0))
+                    .putExtra("packageName", args.getString(1))
+                    .putExtra("icon", args.getString(2))
+                    .putExtra("importance", args.getString(3))
+                    .putExtra("id", args.getString(4));
+
+                activity.getApplicationContext().startForegroundService(intent);
 
             }
         }
