@@ -92,14 +92,11 @@ public class ForegroundService extends Service {
             return;  
         }
 
-
         isServiceStarted = true;
 
         Bundle extras = intent.getExtras();
 
-        // token = (String) extras.get("token");
         this.setToken((String) extras.get("token"));
-        // packageName = (String) extras.get("packageName");
         String tempToken = this.getToken();
 
         Context context = getApplicationContext();
@@ -120,10 +117,6 @@ public class ForegroundService extends Service {
 
                         String myToken = tempToken;
                         
-                        // String anewactivity="Zero";
-                        // Class activityClass = Class.forName("com.webskrip.foreground_service"); //com.something.Zero extras.get("parent_intent")
-                        // Intent NewActivity = new Intent(context, activityClass.class);
-
                         PackageManager pm = context.getPackageManager();
 
                         Intent launchIntent = pm.getLaunchIntentForPackage(getPackageName()); //"com.webskrip.foreground_service"
@@ -224,25 +217,6 @@ public class ForegroundService extends Service {
         stopForeground(true);
         stopSelf();
 
-        // int timeout = 10;
-        // while(isWorkerRun && timeout > 0)
-        // {
-        //     //wait
-        //     try {
-        //         timeout--;
-        //         Thread.sleep(1000);
-        //     } catch (InterruptedException e) {
-        //         e.printStackTrace();
-        //     }
-        // }
-        // if(timeout > 0)
-        // {
-        //     Log.e("Service", "stop worker done..");
-        // }
-        // else
-        // {
-        //     Log.e("Service", "stop worker timeout..");
-        // }
     }
 
     private void _set_restart_service(String myToken)
@@ -304,45 +278,11 @@ public class ForegroundService extends Service {
             Log.e("onTaskRemoved", e.toString());
         }
 
-
-        // stopForeground(true);
-        // stopSelf();
-
-        
-        // this._set_restart_service();
-        // this._stop_worker();
-        
-        // int counter = 121;
-        // String CHANNELID3 = "Helpdesk Notification";
-        // NotificationChannel channel3 = new NotificationChannel(
-        //         CHANNELID3,
-        //         CHANNELID3,
-        //         NotificationManager.IMPORTANCE_LOW
-        // );
-
-        // getSystemService(NotificationManager.class).createNotificationChannel(channel3);
-        
-        // NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        // Notification.Builder builder = new Notification.Builder(this, CHANNELID3)
-        //             .setContentText("Service restarted..")
-        //             .setContentTitle("counter : " + counter)
-        //             .setSmallIcon(17301514);
-                    
-
-        // manager.notify(counter, builder.build());
-
-        
-
-
-
-        // 
     }
     
     
     private void _showNotif(Context context, String myIcon)
     {
-
-        //
         final String CHANNELID = "Foreground Service ID";
         NotificationChannel channel = new NotificationChannel(
                 CHANNELID,
