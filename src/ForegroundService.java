@@ -20,10 +20,8 @@ import android.preference.PreferenceManager;
 
 public class ForegroundService extends Service {
 
-    private static boolean isServiceStarted = false;
-    private boolean isWorkerRun = false;
-    // private static String token = "";
-    // private String packageName = "";
+    private static boolean isServiceStarted;
+    private static boolean isWorkerRun;
 
     private void setToken(String mytoken)
     {
@@ -65,14 +63,39 @@ public class ForegroundService extends Service {
             }
             else if(action.equals("restart"))
             {
-                
+                isServiceStarted = false;
+
+                int timeout = 60;
+                while(isWorkerRun && timeout > 0)
+                {
+                    timeout--;
+                    try 
+                    {
+                        Thread.sleep(500);
+                    } 
+                    catch (InterruptedException e) 
+                    {
+                        e.printStackTrace();
+                    }
+                }
+
+                if(timeout > 0)
+                {
+                    Log.d("service", "worker shutdown");
+                }
+                else
+                {
+                    Log.e("service", "worket timeout after 30 seconds..");
+                }
+
                 Bundle extras = intent.getExtras();
                 String myToken = (String) extras.get("token");
-
+                
                 this._set_restart_service(myToken);
-                isServiceStarted = false;
-                // stopForeground(true);
-                // stopSelf();
+                
+
+                stopForeground(true);
+                stopSelf();
             }
         }
 

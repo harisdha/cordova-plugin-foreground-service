@@ -6,17 +6,23 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import android.annotation.TargetApi;
 
 public class ForegroundPlugin extends CordovaPlugin {
     @Override
     @TargetApi(26)
-    public boolean execute (final String action, final JSONArray args, final CallbackContext command) throws JSONException {
-        if (android.os.Build.VERSION.SDK_INT >= 26) {
+    public boolean execute (final String action, final JSONArray args, final CallbackContext command) throws JSONException 
+    {
+        if (android.os.Build.VERSION.SDK_INT >= 26) 
+        {
+            JSONObject r = new JSONObject();
+
             Activity activity = cordova.getActivity();
             Intent intent = new Intent(activity, ForegroundService.class);
 
-            if (action.equals("start")) {
+            if (action.equals("start")) 
+            {
                 // Tell the service we want to start it
                 intent.setAction("start");
 
@@ -29,15 +35,18 @@ public class ForegroundPlugin extends CordovaPlugin {
                 
                 // Start the service
                 activity.getApplicationContext().startForegroundService(intent);
-            } else if (action.equals("stop")) {
+            } 
+            else if (action.equals("stop")) 
+            {
                 // Tell the service we want to stop it
                 intent.setAction("stop");
 
                 // Stop the service
-                // activity.getApplicationContext().startService(intent);
-                activity.getApplicationContext().stopService(intent);
+                activity.getApplicationContext().startService(intent);
 
-            } else if (action.equals("restart")) {
+            } 
+            else if (action.equals("restart")) 
+            {
                 // Tell the service we want to stop it
                 intent.setAction("restart");
 
@@ -48,12 +57,17 @@ public class ForegroundPlugin extends CordovaPlugin {
                     .putExtra("importance", args.getString(3))
                     .putExtra("id", args.getString(4));
 
-                activity.getApplicationContext().startForegroundService(intent);
+                // activity.getApplicationContext().startForegroundService(intent);
+                activity.getApplicationContext().startService(intent);
 
             }
+
+            command.success(r);
+            return true;
+
         }
 
-        command.success();
-        return true;
+        return false;
     }
+
 }
